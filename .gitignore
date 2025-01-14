@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+develop-eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.env/
+
+# macOS system files
+.DS_Store
+._*
+
+
+# VS Code
+.vscode/
+*.code-workspace
+.history/
+
+# Project specific
+data/
+checkpoints/
+*.pth
+*.ckpt
+*.h5
+*.hdf5
+logs/
+wandb/
+*.log
+output/
+results/
