@@ -56,7 +56,8 @@ def TM_bias(df):
 
 def phase1_pred(model, img):
     with torch.no_grad():
-        x = torch.from_numpy(img).cuda().unsqueeze(0)
+        x = img.cuda().unsqueeze(0)
+        model = model.to('cuda')
         result, unc, feature = model(x)
         result = F.softmax(result, dim=1)
         p = result.tolist()[0][1]
@@ -67,6 +68,7 @@ def phase2_feature(model, img):
     feature_names = ['img_feature_' + str(i) for i in range(256)]
     with torch.no_grad():
         x = img.cuda().unsqueeze(0)
+        model = model.to('cuda')
         result, feature = model.result_with_features(x)
         feature = feature.tolist()
         feature = pd.Series(feature[0], index=feature_names).to_frame().T
@@ -75,26 +77,26 @@ def phase2_feature(model, img):
         return feature
 
 # load the model
-model_name = 'van_tiny'
 phase1_ckpt = './checkpoint/checkpoint-phase1.pth.tar'
-phase1 = create_model(model_name, num_classes=2)
+phase1 = create_model('van_tiny2', num_classes=2)
 load_checkpoint(phase1, checkpoint_path=phase1_ckpt, use_ema=True)
 phase2_ckpt = './checkpoint/checkpoint-phase2.pth.tar'
-phase2 = create_model(model_name, num_classes=2)
+phase2 = create_model('van_tiny', num_classes=2)
 load_checkpoint(phase2, checkpoint_path=phase2_ckpt, use_ema=True)
 phase2_p = pickle.load(open("./model/phase2_predict.pkl", "rb"))
 phase2_u = pickle.load(open("./model/phase2_uncertainty.pkl", "rb"))
 
 # example
-bounding_box = (515, 229, 654, 364)
+bounding_box = '(19 ,140 ,195 ,328)'
 image_path = './data/test/1.jpg'
 imagex = Image.open(image_path)
 structured_data = {"MenopausalStatus": 0, "FamilyHistory": 0, "MedicalHistory": 0, 
                     "BloodFlowPresence": 1, "HormoneTherapyHistory": 0, "TendernessonPalpation": 0, 
                     "CA125": 273.0, "HE4": 87.2, "CA19-9": 1.51, 
-                    "AFP": 1.82, "CEA": 'nan', "MaximumDiameter": 5.3}
+                    "AFP": 1.82, "CEA": None, "MaximumDiameter": 5.3}
+
 # phase1 predict
-imagex = preprocess_img_ori(bounding_box,imagex,324)
+imagex = preprocess_img_ori(bounding_box,image,324)
 p,u = phase1_pred(phase1,imagex)
 # if phase1 predict is low-risk, end
 if p < 0.65 and u< 0.62:
@@ -105,7 +107,7 @@ if p < 0.65 and u< 0.62:
 # else, phase2 predict
 else:
     # get the image features
-    imagex = preprocess_img_ori(bounding_box,imagex,352)
+    imagex = preprocess_img_ori(bounding_box,image,352)
     features = phase2_feature(phase2,imagex)
     # preprocess structure features
     df = pd.DataFrame([structured_data])
