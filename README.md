@@ -1,6 +1,6 @@
 # UMORSS: Uncertainty-aware Multimodal Ovarian Risk Scoring System
 
-This repository contains the code implementation for UMORSS (Uncertainty-aware Multimodal Ovarian Risk Scoring System), a novel multimodal AI framework for automated ovarian cancer risk assessment that integrates uncertainty quantification. UMORSS combines deep learning-based ultrasound image analysis with clinical biomarkers to provide reliable O-RADS (Ovarian-Adnexal Reporting and Data System) predictions while accounting for model uncertainty.
+This repository contains the code implementation for UMORSS (Uncertainty-aware Multimodal Ovarian Risk Scoring System), a novel multimodal AI framework for automated ovarian cancer risk assessment that integrates uncertainty quantification. UMORSS combines deep learning-based ultrasound image analysis with clinical biomarkers to provide reliable prediction of malignancy risk while accounting for model uncertainty.
 
 ## Environment Setup
 
