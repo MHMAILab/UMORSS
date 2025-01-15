@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ## Project Structure
 
 - `models/` - Model architecture implementations
-  - `van.py` - Vision Attention Network (VAN) model
+  - `van.py` and `van2.py` - Vision Attention Network (VAN) model
 - `single_test.py` - Testing script for single case prediction
 - `ai-assistance.py` - Helper functions for combining doctor and AI predictions
 - `LASSO.csv` - Feature coefficients from LASSO regression
