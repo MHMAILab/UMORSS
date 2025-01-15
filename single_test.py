@@ -83,8 +83,8 @@ load_checkpoint(phase1, checkpoint_path=phase1_ckpt, use_ema=True)
 phase2_ckpt = './checkpoint/checkpoint-phase2.pth.tar'
 phase2 = create_model('van_tiny', num_classes=2)
 load_checkpoint(phase2, checkpoint_path=phase2_ckpt, use_ema=True)
-phase2_p = pickle.load(open("./model/phase2_predict.pkl", "rb"))
-phase2_u = pickle.load(open("./model/phase2_uncertainty.pkl", "rb"))
+phase2_p = pickle.load(open("./checkpoint/phase2_predict.pkl", "rb"))
+phase2_u = pickle.load(open("./checkpoint/phase2_uncertainty.pkl", "rb"))
 
 # example
 bounding_box = '(19 ,140 ,195 ,328)'
