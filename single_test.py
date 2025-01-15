@@ -87,13 +87,13 @@ phase2_p = pickle.load(open("./checkpoint/phase2_predict.pkl", "rb"))
 phase2_u = pickle.load(open("./checkpoint/phase2_uncertainty.pkl", "rb"))
 
 # example
-bounding_box = '(19 ,140 ,195 ,328)'
-image_path = './data/test/1.jpg'
-imagex = Image.open(image_path)
-structured_data = {"MenopausalStatus": 0, "FamilyHistory": 0, "MedicalHistory": 0, 
+bounding_box = '(428 ,84 ,694 ,405)'
+image_path = './data/test/1.png'
+image = Image.open(image_path)
+structured_data = {"MenopausalStatus": 0, "FamilyHistory": 0, "MedicalHistory": 1, 
                     "BloodFlowPresence": 1, "HormoneTherapyHistory": 0, "TendernessonPalpation": 0, 
-                    "CA125": 273.0, "HE4": 87.2, "CA19-9": 1.51, 
-                    "AFP": 1.82, "CEA": None, "MaximumDiameter": 5.3}
+                    "CA125": 497.0, "HE4": 106.2, "CA19-9": 11.51, 
+                    "AFP": 1.05, "CEA": None, "MaximumDiameter": 8.3}
 
 # phase1 predict
 imagex = preprocess_img_ori(bounding_box,image,324)
